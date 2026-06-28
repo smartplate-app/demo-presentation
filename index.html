@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Plate Basic - מצגת דמו</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#10b981', foreground: '#ffffff' },
+                        border: '#e2e8f0',
+                        input: '#e2e8f0',
+                        background: '#f8fafc',
+                        card: '#ffffff',
+                        muted: '#f1f5f9',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap');
+        body { font-family: 'Assistant', sans-serif; background-color: #0f172a; color: white; margin: 0; overflow: hidden; }
+        .slide { display: none; height: 100vh; width: 100vw; flex-direction: column; align-items: center; justify-content: center; }
+        .slide.active { display: flex; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* App Mockup Container */
+        .device-container { transition: all 0.3s ease; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .device-desktop { width: 1024px; height: 600px; border-radius: 8px; border: 4px solid #334155; background: #f8fafc; overflow: hidden; }
+        .device-mobile { width: 375px; height: 667px; border-radius: 36px; border: 12px solid #334155; background: #f8fafc; overflow: hidden; position: relative; }
+        .device-mobile::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 24px; background: #334155; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 10; }
+        
+        /* App UI elements */
+        .app-sidebar { background: #ffffff; border-left: 1px solid #e2e8f0; }
+        .app-header { background: #ffffff; border-bottom: 1px solid #e2e8f0; }
+        .app-content { background: #f8fafc; overflow-y: auto; }
+        
+        .controls { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; background: rgba(30, 41, 59, 0.8); padding: 10px 20px; border-radius: 30px; backdrop-filter: blur(10px); z-index: 100; }
+        .btn { background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-family: inherit; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .btn:hover { background: #2563eb; }
+        .btn-toggle { background: #475569; }
+        .btn-toggle:hover { background: #334155; }
+        .btn-toggle.active { background: #10b981; }
+        
+        .dot-indicator { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #475569; cursor: pointer; }
+        .dot.active { background: #10b981; }
+        
+        .slide-title { font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #f8fafc; text-align: center; }
+        .slide-desc { font-size: 16px; color: #cbd5e1; margin-bottom: 24px; text-align: center; max-width: 600px; }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 0: The Problem Dashboard -->
+    <div class="slide active" id="slide-0">
+        <div class="slide-title">תמונה כללית - תמונה אמיתית משולבת ב SMART PLATE BASIC</div>
+        <div class="slide-desc">מבט מהיר על הדשבורד מציג את הבעיה המרכזית: שילוב של עלות מזון ושכר עבודה שחוצה את רף ה-60% מהמכירות.</div>
+        
+        <div class="device-container device-desktop" id="device-0">
+            <img src="https://media.base44.com/images/public/69b697029d0cd0fecb49189b/67ae09222_image.png" class="w-full h-full object-contain bg-slate-900" alt="Dashboard">
+        </div>
+    </div>
+
+    <!-- Slide 1: Welcome -->
+    <div class="slide" id="slide-1">
+        <img src="https://media.base44.com/images/public/69b697029d0cd0fecb49189b/a8369c985_7c68bf93e_smartplate_logo_insta_320x320px1.png" class="w-32 h-32 mb-6 rounded-2xl shadow-xl border-4 border-slate-700 object-contain bg-white" alt="Smart Plate Basic Logo">
+        <h1 class="text-5xl font-bold mb-4 text-emerald-400">Smart Plate Basic</h1>
+        <p class="text-xl text-slate-300 mb-8">מצגת דמו - אפליקציית בטא</p>
+        <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 max-w-2xl text-center">
+            <h2 class="text-2xl font-semibold mb-4 text-white">נושאי ההדרכה (30 דקות):</h2>
+            <ul class="text-right text-slate-300 space-y-3 inline-block">
+                <li><i class="fas fa-check-circle text-emerald-400 ml-2"></i> <strong>הזמנות:</strong> יצירת הזמנה חדשה מול ספק</li>
+                <li><i class="fas fa-check-circle text-emerald-400 ml-2"></i> <strong>קבלת סחורה:</strong> קליטת תעודות משלוח וסנכרון</li>
+                <li><i class="fas fa-check-circle text-emerald-400 ml-2"></i> <strong>סידור עבודה:</strong> ניהול משמרות שבועי ושעות</li>
+                <li><i class="fas fa-check-circle text-emerald-400 ml-2"></i> <strong>ספירות חודשיות:</strong> ניהול מלאי קצה לקצה</li>
+                <li><i class="fas fa-check-circle text-emerald-400 ml-2"></i> <strong>הנדסת תפריט:</strong> ניתוח כדאיות ופופולריות מנות (Menu Engineering)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 2: Ordering -->
+    <div class="slide" id="slide-2">
+        <div class="slide-title">2. מערכת הזמנות ספקים</div>
+        <div class="slide-desc">יצירה, מעקב וניהול הזמנות רכש ישירות מתוך המערכת עם תמיכה מלאה במובייל עבור צוות המטבח.</div>
+        
+        <div class="device-container device-mobile" id="device-2">
+            <img src="https://base44.app/api/apps/69b697029d0cd0fecb49189b/files/mp/public/69b697029d0cd0fecb49189b/4385d277c_IMG_4665.PNG" class="w-full h-full object-contain bg-slate-900" alt="Ordering">
+        </div>
+    </div>
+
+    <!-- Slide 3: Acceptance -->
+    <div class="slide" id="slide-3">
+        <div class="slide-title">3. קבלת סחורה (תעודות משלוח)</div>
+        <div class="slide-desc">קליטת חשבוניות ותעודות משלוח, התרעה על פערי מחירים מול ספקים, ועדכון אוטומטי של עלות המזון (Food Cost).</div>
+        
+        <div class="device-container device-mobile" id="device-3">
+            <img src="https://base44.app/api/apps/69b697029d0cd0fecb49189b/files/mp/public/69b697029d0cd0fecb49189b/565ed75d3_IMG_4669.PNG" class="w-full h-full object-contain bg-slate-900" alt="קבלת סחורה">
+        </div>
+    </div>
+
+    <!-- Slide 4: Weekly Worker Schedule -->
+    <div class="slide" id="slide-4">
+        <div class="slide-title">4. סידור עבודה שבועי</div>
+        <div class="slide-desc">ממשק מתקדם לניהול משמרות שבועי לצוות, חלוקת תפקידים, התראות קונפליקטים וסיכום שעות צפויות מול שעות בפועל.</div>
+        
+        <div class="device-container device-desktop" id="device-4">
+            <img src="https://media.base44.com/images/public/69b697029d0cd0fecb49189b/0e2f9f5d7_image.png" class="w-full h-full object-contain bg-white" alt="סידור עבודה שבועי">
+        </div>
+    </div>
+
+    <!-- Slide 5: Monthly Counts -->
+    <div class="slide" id="slide-5">
+        <div class="slide-title">5. ספירות מלאי (Monthly Counts)</div>
+        <div class="slide-desc">ביצוע ספירת מלאי חודשית בקלות מכל טלפון או טאבלט. עדכון ערך המלאי ישירות לדוחות הרווח וההפסד של הרשת.</div>
+        
+        <div class="device-container device-mobile" id="device-5">
+            <img src="https://base44.app/api/apps/69b697029d0cd0fecb49189b/files/mp/public/69b697029d0cd0fecb49189b/0dc27a8b3_IMG_4673.JPEG" class="w-full h-full object-contain bg-slate-900" alt="ספירת מלאי">
+        </div>
+    </div>
+
+    <!-- Slide 6: Menu Engineering -->
+    <div class="slide" id="slide-6">
+        <div class="slide-title">6. הנדסת תפריט (Menu Engineering)</div>
+        <div class="slide-desc">ניתוח פופולריות לעומת כדאיות למנה. זיהוי "כוכבים" (רווחיים ונמכרים) לעומת "כלבים" (נמכרים פחות ולא רווחיים).</div>
+        
+        <div class="device-container device-desktop" id="device-6">
+            <img src="https://base44.app/api/apps/69b697029d0cd0fecb49189b/files/mp/public/69b697029d0cd0fecb49189b/eaa6c2be9_2.jpeg" class="w-full h-full object-contain bg-slate-900" alt="הנדסת תפריט">
+        </div>
+    </div>
+
+    <!-- Presentation Controls -->
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()"><i class="fas fa-chevron-right"></i> הקודם</button>
+        <button class="btn btn-toggle active" id="btn-desktop" onclick="setDevice('desktop')"><i class="fas fa-desktop"></i></button>
+        <button class="btn btn-toggle" id="btn-mobile" onclick="setDevice('mobile')"><i class="fas fa-mobile-alt"></i></button>
+        <button class="btn" onclick="nextSlide()">הבא <i class="fas fa-chevron-left"></i></button>
+    </div>
+
+    <div class="dot-indicator" id="dots">
+        <div class="dot active" onclick="goToSlide(0)"></div>
+        <div class="dot" onclick="goToSlide(1)"></div>
+        <div class="dot" onclick="goToSlide(2)"></div>
+        <div class="dot" onclick="goToSlide(3)"></div>
+        <div class="dot" onclick="goToSlide(4)"></div>
+        <div class="dot" onclick="goToSlide(5)"></div>
+        <div class="dot" onclick="goToSlide(6)"></div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 7;
+
+        function updateUI() {
+            document.querySelectorAll('.slide').forEach((el, index) => {
+                el.classList.toggle('active', index === currentSlide);
+            });
+            document.querySelectorAll('.dot').forEach((el, index) => {
+                el.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) { currentSlide++; updateUI(); }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) { currentSlide--; updateUI(); }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index; updateUI();
+        }
+
+        function setDevice(type) {
+            const isMobile = type === 'mobile';
+            document.querySelectorAll('.device-container').forEach(el => {
+                el.className = 'device-container ' + (isMobile ? 'device-mobile' : 'device-desktop');
+                
+                // Hide sidebar on mobile
+                const sidebar = el.querySelector('.app-sidebar');
+                if (sidebar) {
+                    if (isMobile) sidebar.classList.add('hidden');
+                    else { sidebar.classList.remove('hidden'); sidebar.classList.add('flex'); }
+                }
+            });
+            
+            document.getElementById('btn-desktop').classList.toggle('active', !isMobile);
+            document.getElementById('btn-mobile').classList.toggle('active', isMobile);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') nextSlide(); // RTL direction
+            if (e.key === 'ArrowRight') prevSlide();
+        });
+    </script>
+</body>
+</html>
