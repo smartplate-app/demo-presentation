@@ -11,13 +11,13 @@
             font-family: 'Heebo', sans-serif;
             background-color: #0f172a;
             color: white;
-            overflow: hidden;
+            overflow-x: hidden;
             text-align: right;
             direction: rtl;
         }
         .slide {
             display: none;
-            height: 100vh;
+            min-height: 100vh;
             padding: 4rem 8rem;
             flex-direction: column;
             justify-content: center;
@@ -43,6 +43,7 @@
             font-weight: bold;
             transition: background 0.3s, transform 0.2s;
             border: none;
+            z-index: 10;
         }
         .nav-btn:hover { background: #2563eb; transform: scale(1.05); }
         .nav-prev { right: 4rem; }
@@ -67,11 +68,47 @@
         h1, h2, p, li { text-align: right; direction: rtl; }
         h1 { font-size: 4.5rem; font-weight: 800; margin-bottom: 1.5rem; color: #f8fafc; line-height: 1.2; }
         h2 { font-size: 3.5rem; font-weight: 700; margin-bottom: 3rem; color: #60a5fa; border-bottom: 2px solid #334155; padding-bottom: 1rem; display: inline-block;}
+        p.subtitle { font-size: 2.5rem; color: #94a3b8; margin-top: 1rem; }
         ul { list-style-type: none; padding: 0; margin-right: 0; }
         li { font-size: 2.2rem; margin-bottom: 2rem; display: flex; align-items: flex-start; line-height: 1.4; color: #cbd5e1; }
         li::before { content: "✔"; color: #3b82f6; font-weight: bold; display: inline-block; width: 1.5em; margin-left: 0.5em; font-size: 1.8rem; margin-top: 0.2rem;}
         .highlight { color: #facc15; font-weight: bold; }
         .bg-element { position: absolute; top: -10%; right: -10%; width: 50%; height: 50%; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(15,23,42,0) 70%); z-index: -1; pointer-events: none;}
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 6rem 1.5rem 6rem 1.5rem; /* space for top logo and bottom buttons */
+                justify-content: flex-start;
+            }
+            .logo {
+                top: 1rem;
+                left: 1.5rem;
+                width: 70px;
+            }
+            h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+            p.subtitle { font-size: 1.3rem; margin-top: 0.5rem; }
+            h2 { font-size: 1.8rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; }
+            li { font-size: 1.2rem; margin-bottom: 1.2rem; }
+            li::before { font-size: 1.2rem; width: 1.2em; margin-top: 0.1rem; }
+            .nav-btn {
+                bottom: 1.5rem;
+                padding: 0.6rem 1.2rem;
+                font-size: 1rem;
+            }
+            .nav-prev { right: 1rem; }
+            .nav-next { left: 1rem; }
+            .slide-number {
+                bottom: 1.8rem;
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 400px) {
+            h1 { font-size: 2.1rem; }
+            h2 { font-size: 1.5rem; }
+            li { font-size: 1.05rem; margin-bottom: 1rem; }
+            .nav-btn { font-size: 0.9rem; padding: 0.5rem 1rem; }
+        }
     </style>
 </head>
 <body dir="rtl" style="text-align: right;">
@@ -82,7 +119,7 @@
     <div class="slide active" id="slide-1" dir="rtl" style="text-align: right;">
         <img src="https://media.base44.com/images/public/69b697029d0cd0fecb49189b/ab3d32227_7c68bf93e_smartplate_logo_insta_320x320px.png" class="logo" alt="Smart Plate Logo">
         <h1 dir="rtl" style="text-align: right;">ניהול מסעדה לשפים:<br><span style="color: #60a5fa;">המספרים שמאחורי הצלחת</span></h1>
-        <p dir="rtl" style="text-align: right;" style="font-size: 2.5rem; color: #94a3b8; margin-top: 1rem;">המעבר מבישול מעולה לשליטה ברווחיות העסק</p>
+        <p class="subtitle" dir="rtl" style="text-align: right;">המעבר מבישול מעולה לשליטה ברווחיות העסק</p>
         <div class="slide-number">1 / 6</div>
         <button class="nav-btn nav-next" onclick="nextSlide(1)">התחל הרצאה ⬅</button>
     </div>
@@ -93,7 +130,7 @@
         <h2 dir="rtl" style="text-align: right;">1. מה זה פריים קוסט (Prime Cost)?</h2>
         <ul dir="rtl" style="text-align: right;">
             <li dir="rtl" style="text-align: right;">המדד החשוב ביותר בענף המסעדנות לבחינת רווחיות.</li>
-            <li dir="rtl" style="text-align: right;">הנוסחה: <span class="highlight">עלות מזון (Food Cost) + עלות עבודה (Labor Cost)</span>.</li>
+            <li dir="rtl" style="text-align: right;">הנוסחה: <span class="highlight">עלות מזון + עלות עבודה</span>.</li>
             <li dir="rtl" style="text-align: right;">היעד העסקי להצלחה: <span class="highlight">עד 60% מהמחזור בסך הכל</span>.</li>
             <li dir="rtl" style="text-align: right;">למה זה חשוב לשף? אלו ההוצאות היחידות שנמצאות <span class="highlight">בשליטה היומיומית שלכם</span>.</li>
         </ul>
@@ -107,8 +144,8 @@
         <img src="https://media.base44.com/images/public/69b697029d0cd0fecb49189b/ab3d32227_7c68bf93e_smartplate_logo_insta_320x320px.png" class="logo" alt="Smart Plate Logo">
         <h2 dir="rtl" style="text-align: right;">2. רכש: הזמנות מול קבלת סחורה</h2>
         <ul dir="rtl" style="text-align: right;">
-            <li dir="rtl" style="text-align: right;">חובה להשוות <span class="highlight">ברמת הפריט הבודד</span> בין מה שהוזמן לבין תעודת המשלוח והחשבונית.</li>
-            <li dir="rtl" style="text-align: right;">למה זה קריטי? גילוי פערי מחירים, משקלים חסרים, טעויות ספקים, ומוצרים חלופיים.</li>
+            <li dir="rtl" style="text-align: right;">חובה להשוות <span class="highlight">ברמת הפריט הבודד</span> בין מה שהוזמן לבין תעודת המשלוח.</li>
+            <li dir="rtl" style="text-align: right;">למה זה קריטי? גילוי פערי מחירים, משקלים חסרים, ומוצרים חלופיים.</li>
             <li dir="rtl" style="text-align: right;">השפעה ישירה: <span class="highlight">הקניינות משתפרת פלאים</span>. הספקים מזהים עסק מנוהל ומפסיקים "לעגל פינות".</li>
             <li dir="rtl" style="text-align: right;">טיפ: התמקדו קודם כל ב-10 חומרי הגלם היקרים ביותר שלכם.</li>
         </ul>
@@ -123,9 +160,9 @@
         <h2 dir="rtl" style="text-align: right;">3. פוד קוסט וספירות מלאי</h2>
         <ul dir="rtl" style="text-align: right;">
             <li dir="rtl" style="text-align: right;">אי אפשר למדוד עלות מזון רק לפי "כמה קנינו החודש מספקים".</li>
-            <li dir="rtl" style="text-align: right;">הנוסחה האמיתית: <span class="highlight">מלאי פתיחה + קניות - מלאי סגירה = שימוש בסחורה בפועל</span>.</li>
-            <li dir="rtl" style="text-align: right;">החובה: <span class="highlight">2 ספירות מלאי</span> מדויקות (בתחילת החודש ובסופו) כדי לקבל נתון אמת.</li>
-            <li dir="rtl" style="text-align: right;">ההבדל בין השימוש המחושב לשימוש בפועל חושף את האמת על פחת, זריקות, וטעויות בהכנה.</li>
+            <li dir="rtl" style="text-align: right;">הנוסחה האמיתית: <span class="highlight">פתיחה + קניות - סגירה = שימוש בפועל</span>.</li>
+            <li dir="rtl" style="text-align: right;">החובה: <span class="highlight">2 ספירות מלאי</span> מדויקות כדי לקבל נתון אמת.</li>
+            <li dir="rtl" style="text-align: right;">ההבדל בין השימוש המחושב לשימוש בפועל חושף את האמת על פחת וטעויות בהכנה.</li>
         </ul>
         <div class="slide-number">4 / 6</div>
         <button class="nav-btn nav-prev" onclick="prevSlide(4)">➡ הקודם</button>
@@ -139,8 +176,8 @@
         <ul dir="rtl" style="text-align: right;">
             <li dir="rtl" style="text-align: right;">סידור העבודה הוא תקציב לכל דבר. אי אפשר לגלות חריגות בסוף החודש.</li>
             <li dir="rtl" style="text-align: right;">מערכת ענן מודרנית <span class="highlight">מתמחרת בזמן אמת</span> כל משמרת שאתם משבצים.</li>
-            <li dir="rtl" style="text-align: right;">ברגע סיום בניית הסידור, יודעים <span class="highlight">מראש</span> את אחוז הלייבור הצפוי ביחס למכירות החזויות.</li>
-            <li dir="rtl" style="text-align: right;">היתרון: אם אנחנו חורגים מהתקציב, מתקנים את הסידור לפני שהשבוע בכלל התחיל.</li>
+            <li dir="rtl" style="text-align: right;">יודעים <span class="highlight">מראש</span> את אחוז הלייבור הצפוי ביחס למכירות החזויות לשבוע הבא.</li>
+            <li dir="rtl" style="text-align: right;">אם חורגים מהתקציב, מתקנים את הסידור לפני שהשבוע בכלל התחיל.</li>
         </ul>
         <div class="slide-number">5 / 6</div>
         <button class="nav-btn nav-prev" onclick="prevSlide(5)">➡ הקודם</button>
@@ -155,7 +192,7 @@
             <li dir="rtl" style="text-align: right;">פוד קוסט (Food Cost) + לייבור קוסט (Labor Cost) משתלבים יחד.</li>
             <li dir="rtl" style="text-align: right;">שליטה בשני צידי המשוואה = <span class="highlight">עמידה ביעד פריים קוסט של 60%</span>.</li>
             <li dir="rtl" style="text-align: right;">שף מודרני לא רק מבשל מצוין, אלא <span class="highlight">מנהל את הנתונים בזמן אמת</span>.</li>
-            <li dir="rtl" style="text-align: right;">המטרה היא לא לתת למספרים לנהל את המטבח, אלא להשתמש בהם כדי להבטיח את עתיד המסעדה.</li>
+            <li dir="rtl" style="text-align: right;">המטרה היא להשתמש במספרים כדי להבטיח את עתיד המסעדה.</li>
         </ul>
         <div class="slide-number">6 / 6</div>
         <button class="nav-btn nav-prev" onclick="prevSlide(6)">➡ הקודם</button>
@@ -165,10 +202,12 @@
         function nextSlide(current) {
             document.getElementById('slide-' + current).classList.remove('active');
             document.getElementById('slide-' + (current + 1)).classList.add('active');
+            window.scrollTo(0, 0);
         }
         function prevSlide(current) {
             document.getElementById('slide-' + current).classList.remove('active');
             document.getElementById('slide-' + (current - 1)).classList.add('active');
+            window.scrollTo(0, 0);
         }
         
         document.addEventListener('keydown', function(event) {
