@@ -179,10 +179,11 @@
             
             // Temporarily style for clean PDF
             const originalShadow = docEl.style.boxShadow;
-            const originalPadding = docEl.style.padding;
+            const originalBorderRadius = docEl.style.borderRadius;
             
             docEl.style.boxShadow = 'none';
-            docEl.style.padding = '0';
+            docEl.style.borderRadius = '0';
+            // We keep the padding from CSS (.nda-content has padding: 40px)
             
             // Hide form section, wait for DOM reflow
             const formSection = document.getElementById('form-section');
@@ -199,7 +200,7 @@
                 
                 // Restore UI immediately
                 docEl.style.boxShadow = originalShadow;
-                docEl.style.padding = originalPadding;
+                docEl.style.borderRadius = originalBorderRadius;
                 formSection.style.display = 'block';
 
                 const imgData = canvasImage.toDataURL('image/jpeg', 0.65);
@@ -238,7 +239,7 @@
                 
                 // Restore UI in case of error
                 docEl.style.boxShadow = originalShadow;
-                docEl.style.padding = originalPadding;
+                docEl.style.borderRadius = originalBorderRadius;
                 formSection.style.display = 'block';
             }
         }
