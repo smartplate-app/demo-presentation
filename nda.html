@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>חתימה על הסכם סודיות (NDA)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap');
+        body { font-family: 'Assistant', sans-serif; background-color: #f1f5f9; text-align: right; }
+        .nda-content { max-width: 800px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        h1, h2, h3 { color: #1e293b; text-align: right; }
+        h1 { text-align: center; }
+        p, li { color: #334155; line-height: 1.6; text-align: right; }
+        .canvas-container { border: 2px dashed #cbd5e1; border-radius: 8px; background: #f8fafc; position: relative; }
+        canvas { width: 100%; height: 200px; cursor: crosshair; }
+        ul { list-style-type: disc; list-style-position: inside; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="full-document" class="nda-content rounded-xl relative">
+        <!-- Input Form Overlay for dynamic filling (hidden in final screenshot) -->
+        <div id="form-section" class="mb-8 p-6 bg-slate-50 border border-slate-200 rounded-lg" data-html2canvas-ignore="true">
+            <h2 class="text-xl font-bold mb-4" style="text-align: right;">אנא מלאו את פרטיכם:</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-right">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">שם מלא</label>
+                    <input type="text" id="input-name" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-blue-500" onkeyup="updateDoc()" placeholder="ישראל ישראלי">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">תעודת זהות / ח.פ.</label>
+                    <input type="text" id="input-id" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-blue-500" onkeyup="updateDoc()" placeholder="123456789">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-right">
+            <h1 class="text-3xl font-bold text-center mb-6">הסכם סודיות ואי-שימוש (NDA)</h1>
+<p class="mb-2 text-justify">שנערך ונחתם ביום <span id="doc-day" class="font-bold border-b border-black inline-block w-8 text-center">____</span> בחודש <span id="doc-month" class="font-bold border-b border-black inline-block w-8 text-center">____</span> שנת 2026</p>
+<h2 class="text-xl font-bold mt-6 mb-2">בין:</h2>
+<p class="mb-2 text-justify">שירן לוי , ת.ז. 037053071 מרחוב: ריינס 28 גבעתיים</p>
+<p class="mb-2 text-justify">ניצן בנט , ת.ז. 028930436 מרחוב: שוקן 32 תל אביב</p>
+<p class="mb-2 text-justify">(להלן: "החברה") - מצד אחד;</p>
+<h2 class="text-xl font-bold mt-6 mb-2">לבין:</h2>
+<p class="mb-2 text-justify"><span id="doc-name" class="font-bold border-b border-black inline-block min-w-[150px] px-2 text-center text-blue-700">___________________</span>, ח.פ. / ת.ז. <span id="doc-id" class="font-bold border-b border-black inline-block min-w-[150px] px-2 text-center text-blue-700">___________________</span></p>
+<p class="mb-2 text-justify">(להלן: "המקבל") - מצד שני;</p>
+<h2 class="text-xl font-bold mt-6 mb-2">המבוא</h2>
+<p class="mb-2 text-justify">הואיל והחברה פיתחה ו/או מפתחת תוכנה, טכנולוגיה, קוד מקור, ארכיטקטורה, מערכות ורעיונות קשורים (להלן: "התוכנה");</p>
+<p class="mb-2 text-justify">והואיל והצדדים מעוניינים לבחון אפשרות לשיתוף פעולה עסקי, פיתוח משותף, או מתן שירותים בקשר לתוכנה (להלן: "המטרה");</p>
+<p class="mb-2 text-justify">והואיל ולצורך המטרה, עשויה החברה לחשוף בפני המקבל מידע סודי, טכנולוגי ועסקי יקר ערך, והצדדים מעוניינים להסדיר את שמירת סודיותו של מידע זה והגנת הקניין הרוחני של החברה;</p>
+<p class="mb-2 text-justify">לפיכך, הוצהר, הותנה והוסכם בין הצדדים כדלקמן:</p>
+<h2 class="text-xl font-bold mt-6 mb-2">1. הגדרת "מידע סודי"</h2>
+<p class="mb-2 text-justify">"מידע סודי" משמעו כל מידע, מכל סוג שהוא, בין אם בעל פה, בכתב, בצורה אלקטרונית או בכל מדיה אחרת, אשר נמסר או יימסר למקבל על ידי החברה או מי מטעמה בקשר למטרה. מידע סודי כולל, אך אינו מוגבל ל:</p>
+<li class="mr-4 mb-2">טכנולוגיה: קוד מקור (Source Code), קוד יעד (Object Code), אלגוריתמים, ארכיטקטורת תוכנה, ממשקי תכנות (APIs), בסיסי נתונים, עיצוב ממשק משתמש (UI/UX), מפרטים טכניים, תהליכי פיתוח, ותוצרי פיתוח.</li>
+<li class="mr-4 mb-2">עסקי: תוכניות עסקיות, אסטרטגיות שיווק, מידע פיננסי, רשימות לקוחות, שותפים, ספקים, ותמחור.</li>
+<li class="mr-4 mb-2">כללי: כל מידע שהוגדר כסודי, או שמעצם טבעו בנסיבות העניין פילוסופי או עסקי יש לראותו כסודי.</li>
+<li class="mr-4 mb-2">התוכנה: בהסכם זה ייקרא כל כל רעיון, מידע, סוד מסחרי, שיטת יצור, פיתוח ותכנון, תרשימים, שרטוטים, תהליכים, מפרטים, תוכניות, הצעות, מסמכים, ידיעות ונתונים טכניים, כלכליים, מסחריים, טכנולוגיים, סטטיסטיים, תיאורטיים, מעשיים ו/או אחרים השייכים לממציא, הנוגעים לו ו/או להמצאתו ו/או הקשורים לו ו/או להמצאתו, באופן ישיר או עקיף ״מידע סודי״ .</li>
+<h2 class="text-xl font-bold mt-6 mb-2">2. חריגים למידע סודי</h2>
+<p class="mb-2 text-justify">התחייבויות הסודיות לפי הסכם זה לא יחולו על מידע אשר המקבל יוכיח כי:</p>
+<li class="mr-4 mb-2">היה נחלת הכלל במועד חשיפתו, או הפך לנחלת הכלל שלא עקב הפרת הסכם זה על ידי המקבל.</li>
+<li class="mr-4 mb-2">היה ברשותו כדין של המקבל עוד לפני חשיפתו על ידי החברה, מבלי שהיה כפוף לחובת סודיות.</li>
+<li class="mr-4 mb-2">התקבל אצל המקבל מצד שלישי שהיה רשאי למסור אותו מבלי להפר חובת סודיות.</li>
+<li class="mr-4 mb-2">פותח באופן עצמאי על ידי המקבל ללא כל שימוש או הסתמכות על המידע הסודי של החברה.</li>
+<h2 class="text-xl font-bold mt-6 mb-2">3. חובת שמירת הסודיות והגבלת השימוש</h2>
+<p class="mb-2 text-justify">המקבל מתחייב:</p>
+<li class="mr-4 mb-2">לשמור על המידע הסודי בסודיות מוחלטת ובאמון מלא, ולנקוט באמצעי זהירות קפדניים (לפחות באותה רמה בה הוא מגן על מידע סודי שלו, ובכל מקרה לא פחות מרמת זהירות סבירה).</li>
+<li class="mr-4 mb-2">לעשות שימוש במידע הסודי אך ורק לצורך הגשמת המטרה (בחינת שיתוף הפעולה / פיתוח משותף) ולא לכל מטרה אחרת, מסחרית או אחרת, ללא אישור מראש ובכתב מהחברה.</li>
+<li class="mr-4 mb-2">לא להעתיק, לשכפל, להפיץ, להנדס לאחור (Reverse Engineering), או לבצע דה-קומפילציה (Decompilation) לתוכנה או לכל חלק מהמידע הסודי.</li>
+<li class="mr-4 mb-2">להלן מוסכם כי הרעיון וההמצאה הינם פרי פיתוחו הבלעדי וקניינו הרוחני של ״החברה״, וכי המידע הסודי, או כל חלק ממנו, גם הוא נחשב לקניינו הבלעדי של ״החברה״.</li>
+<li class="mr-4 mb-2">לפיכך מוסכם כי המידע הסודי ישמש את החתום מטה אך ורק לצורך בדיקת אפשרות לשיתוף פעולה עם הממציא ולצורך ניהול משא ומתן איתו (להלן "מטרת השימוש").</li>
+<li class="mr-4 mb-2">התחייבויות החתום מטה לשמירה על המידע וכן למניעת הפצתו, לעשות בו את השימוש המוגבל לצורך הבדיקות כאמור, נכון גם לגבי כל עובדיו, ספקיו וכל העובדים עימו במהלך העבודה, כמו גם בני משפחתו. ההתחייבות היא גורפת כך שהמידע לא יועבר לצד ג' ולא ייעשה בו שימוש בהיותו הרעיון השייך ל״חברה״. כמו כן, מתחייב החתום מטה לעדכן את הגורמים מולם נעשית הבדיקה כי הוא חתום על הסכם סודיות וכי הדבר מחייב גם אותם.</li>
+<li class="mr-4 mb-2">לא לחשוף את המידע הסודי בפני צד שלישי כלשהו, למעט עובדיו או יועצים מטעמו הזקוקים למידע ישירות לצורך המטרה, ובלבד שהם חתומים על הסכם סודיות מחייב שתנאיו מחמירים לפחות כשל הסכם זה. המקבל יהיה אחראי לכל הפרה של הסכם זה על ידי מי מטעמו.</li>
+<h2 class="text-xl font-bold mt-6 mb-2">4. גילוי על פי צו שיפוטי</h2>
+<p class="mb-2 text-justify">חשיפת מידע סודי על פי צו של רשות שיפוטית או ממשלתית מוסמכת לא תחשב כהפרה של הסכם זה, ובלבד שהמקבל ימסור לחברה הודעה מיידית בכתב (ככל שהחוק מתיר זאת) על מנת לאפשר לחברה לפעול לקבלת צו מניעה או הגנה, וישתף פעולה עם החברה לצורך כך. המקבל יחשוף אך ורק את חלק המידע שנדרש על פי חוק.</p>
+<h2 class="text-xl font-bold mt-6 mb-2">5. קניין רוחני ובעלות</h2>
+<li class="mr-4 mb-2">כל המידע הסודי, לרבות התוכנה, קוד המקור וכל זכויות הקניין הרוחני הקשורות בהם (פטנטים, זכויות יוצרים, סודות מסחריים, סימני מסחר וכיוצא בזה), הינם ויוותרו קניינה הבלעדי של החברה.</li>
+<li class="mr-4 mb-2">אין בהסכם זה, או בעצם חשיפת המידע, כדי להעניק למקבל רישיון, זכות או זיקה כלשהי במידע הסודי או בקניין הרוחני של החברה.</li>
+<li class="mr-4 mb-2">פיתוח משותף: ככל שבמהלך העבודה המשותפת ייווצרו רעיונות, שיפורים, שינויים, קוד חדש או תוצרים כלשהם המבוססים על המידע הסודי של החברה (להלן: "התוצרים"), הרי שכל התוצרים וזכויות הקניין הרוחני בהם יהיו שייכים באופן בלעדי לחברה, אלא אם הוסכם אחרת במפורש ובכתב בין הצדדים בהסכם פיתוח נפרד.</li>
+<h2 class="text-xl font-bold mt-6 mb-2">6. החזרת המידע או השמדתו</h2>
+<p class="mb-2 text-justify">בכל עת, לפי דרישתה הראשונה של החברה בכתב, או עם סיום הקשר בין הצדדים, המקבל יפסיק לאלתר את השימוש במידע הסודי, ויחזיר לחברה או ישמיד (לפי בחירת החברה) את כל המידע הסודי שנמסר לו, לרבות עותקים, סיכומים, תוכנות ומסמכים, ויאשר בכתב לחברה כי עשה כן. חובה זו לא תחול על עותקי גיבוי אוטומטיים במערכות המחשוב של המקבל, ובלבד שאלו יישארו חסויים וכפופים לתנאי הסכם זה עד להשמדתם המלאה.</p>
+<h2 class="text-xl font-bold mt-6 mb-2">7. תקופת ההסכם</h2>
+<p class="mb-2 text-justify">הסכם זה ייכנס לתוקפו במועד חתימתו. חובות שמירת הסודיות ואי-השימוש במידע הסודי ובתוכנה ימשיכו לחול ולחייב את המקבל גם לאחר סיום הקשר בין הצדדים, וזאת למשך תקופה של 7 שנים ממועד החשיפה האחרון של מידע סודי; למעט לגבי קוד מקור (Source Code) וסודות מסחריים מהותיים, לגביהם חובת הסודיות ואי-השימוש תישאר בתוקף ללא הגבלת זמן.</p>
+<h2 class="text-xl font-bold mt-6 mb-2">8. סעדים ותרופות</h2>
+<p class="mb-2 text-justify">המקבל מאשר כי הפרת הסכם זה עלולה לגרום לחברה נזק בלתי הפיך, אשר פיצוי כספי לבדו לא יהווה לו תרופה הולמת. לפיכך, בנוסף לכל סעד כספי או אחר על פי דין, החברה תהיה זכאית לקבל סעדים זמניים או קבועים, לרבות צווי מניעה, כדי למנוע או לעצור את הפרת ההסכם, ללא צורך בהוכחת נזק ממשי או הפקדת ערובה גבוהה.</p>
+<h2 class="text-xl font-bold mt-6 mb-2">9. שונות</h2>
+<li class="mr-4 mb-2">היעדר שותפות: הסכם זה אינו יוצר בין הצדדים יחסי שליחות, שותפות, מיזם משותף (Joint Venture) או יחסי עובד-מעביד.</li>
+<li class="mr-4 mb-2">שינויים בכתב: כל שינוי, תיקון או תוספת להסכם זה יהיו בתוקף רק אם נעשו בכתב ונחתמו על ידי שני הצדדים.</li>
+<li class="mr-4 mb-2">הדין החל וסמכות שיפוט: על הסכם זה יחולו אך ורק דיני מדינת ישראל. סמכות השיפוט הבלעדית בכל מחלוקת הנובעת מהסכם זה תהיה מסורה לבתי המשפט המוסמכים בעיר [תל אביב-יפו / חיפה / ירושלים - לבחירת החברה].</li>
+
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-slate-200 text-right">
+            <h2 class="text-xl font-bold mb-6">ולראיה באתי על החתום:</h2>
+            <div class="mb-4">
+                <span class="inline-block w-16">שם:</span> <strong id="sign-name" class="border-b border-black min-w-[200px] inline-block text-center"></strong>
+            </div>
+            <div class="mb-4">
+                <span class="inline-block w-16">ת.ז/ח.פ:</span> <strong id="sign-id" class="border-b border-black min-w-[200px] inline-block text-center"></strong>
+            </div>
+            
+            <div class="mt-6">
+                <label class="block font-bold mb-2">חתימה (חתמו כאן עם האצבע או העכבר):</label>
+                <div class="canvas-container" id="canvas-wrapper">
+                    <canvas id="signature-pad"></canvas>
+                    <button onclick="signaturePad.clear()" class="absolute top-2 left-2 text-xs bg-slate-200 hover:bg-slate-300 px-2 py-1 rounded shadow" data-html2canvas-ignore="true">נקה חתימה</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="loading" class="hidden absolute inset-0 bg-white/80 flex flex-col items-center justify-center z-50 rounded-xl" data-html2canvas-ignore="true">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+            <p class="text-lg font-bold text-blue-800">מייצר מסמך ושולח...</p>
+        </div>
+        
+        <div id="success-msg" class="hidden absolute inset-0 bg-green-50 flex flex-col items-center justify-center z-50 rounded-xl border-2 border-green-500" data-html2canvas-ignore="true">
+            <h2 class="text-2xl font-bold text-green-800">המסמך נשלח בהצלחה!</h2>
+            <p class="text-green-700 mt-2">עותק חתום הועבר לחברה.</p>
+        </div>
+    </div>
+
+    <div class="max-w-xs mx-auto mt-8 text-center" id="action-btn-container">
+        <button onclick="submitDocument()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center gap-3">
+            שלח מסמך חתום
+        </button>
+    </div>
+
+    <script>
+        const now = new Date();
+        document.getElementById('doc-day').innerText = now.getDate();
+        document.getElementById('doc-month').innerText = now.getMonth() + 1;
+
+        const canvas = document.getElementById('signature-pad');
+        const signaturePad = new SignaturePad(canvas, {
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            penColor: 'rgb(0, 0, 100)'
+        });
+
+        function resizeCanvas() {
+            const ratio =  Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+            signaturePad.clear();
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        function updateDoc() {
+            const name = document.getElementById('input-name').value;
+            const id = document.getElementById('input-id').value;
+            
+            document.getElementById('doc-name').innerText = name || "___________________";
+            document.getElementById('sign-name').innerText = name;
+            
+            document.getElementById('doc-id').innerText = id || "___________________";
+            document.getElementById('sign-id').innerText = id;
+        }
+
+        async function submitDocument() {
+            const name = document.getElementById('input-name').value;
+            const id = document.getElementById('input-id').value;
+
+            if (!name || !id) {
+                alert("אנא מלאו שם מלא ותעודת זהות לפני השליחה.");
+                return;
+            }
+            if (signaturePad.isEmpty()) {
+                alert("אנא חתמו בחלונית החתימה לפני השליחה.");
+                return;
+            }
+
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('action-btn-container').style.display = 'none';
+
+            try {
+                const element = document.getElementById('full-document');
+                const canvasImage = await html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff'
+                });
+                
+                const base64Image = canvasImage.toDataURL('image/jpeg', 0.8);
+
+                const response = await fetch("https://base44.app/api/apps/69b697029d0cd0fecb49189b/functions/submitNda", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: name,
+                        id_number: id,
+                        image_base64: base64Image
+                    })
+                });
+
+                if (response.ok) {
+                    document.getElementById('loading').classList.add('hidden');
+                    document.getElementById('success-msg').classList.remove('hidden');
+                } else {
+                    throw new Error("Server returned " + response.status);
+                }
+            } catch (err) {
+                console.error(err);
+                alert("אירעה שגיאה בשליחת המסמך. אנא נסו שוב.");
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('action-btn-container').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
