@@ -191,10 +191,8 @@
             await new Promise(r => setTimeout(r, 100)); 
 
             try {
-                // Notice we do NOT hide the form section manually because data-html2canvas-ignore="true" handles it.
-                // Hiding it manually causes layout shifts that break the canvas render.
                 const canvasImage = await html2canvas(docEl, {
-                    scale: 1.5,
+                    scale: 1.0, // Dramatically reduced scale to prevent payload size errors on Retina/Mac screens
                     useCORS: true,
                     backgroundColor: '#ffffff'
                 });
@@ -203,7 +201,8 @@
                 docEl.style.boxShadow = originalShadow;
                 docEl.style.borderRadius = originalBorderRadius;
 
-                const imgData = canvasImage.toDataURL('image/jpeg', 0.65);
+                // Max compression for the PDF base64 image (0.4)
+                const imgData = canvasImage.toDataURL('image/jpeg', 0.4);
                 
                 const { jsPDF } = window.jspdf;
                 const pdfWidth = 210;
