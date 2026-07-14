@@ -175,6 +175,9 @@
             document.getElementById('loading').classList.remove('hidden');
             document.getElementById('action-btn-container').style.display = 'none';
 
+            // Scroll to top - html2canvas has a known bug with scrolled pages resulting in blank captures
+            window.scrollTo(0, 0);
+
             const docEl = document.getElementById('full-document');
             
             // Temporarily style for clean PDF
@@ -183,19 +186,21 @@
             
             docEl.style.boxShadow = 'none';
             docEl.style.borderRadius = '0';
-            // We keep the padding from CSS (.nda-content has padding: 40px)
             
             // Hide form section, wait for DOM reflow
             const formSection = document.getElementById('form-section');
             formSection.style.display = 'none';
             
-            await new Promise(r => setTimeout(r, 100)); // Crucial: wait for DOM to update
+            await new Promise(r => setTimeout(r, 150)); // Wait for DOM and scroll to settle
 
             try {
                 const canvasImage = await html2canvas(docEl, {
                     scale: 1.5,
                     useCORS: true,
-                    backgroundColor: '#ffffff'
+                    backgroundColor: '#ffffff',
+                    windowWidth: document.documentElement.offsetWidth,
+                    windowHeight: document.documentElement.offsetHeight,
+                    scrollY: -window.scrollY
                 });
                 
                 // Restore UI immediately
