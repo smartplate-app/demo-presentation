@@ -175,28 +175,33 @@
             document.getElementById('loading').classList.remove('hidden');
             document.getElementById('action-btn-container').style.display = 'none';
 
-            // Temporarily remove classes that could cause gray borders
             const docEl = document.getElementById('full-document');
-            const origClasses = docEl.className;
-            docEl.className = "nda-content"; // Pure white background, no shadow, no rounded corners
-            docEl.style.padding = "20px";
             
-            // Hide the form section completely from the PDF
-            document.getElementById('form-section').style.display = 'none';
+            // Temporarily style for clean PDF
+            const originalShadow = docEl.style.boxShadow;
+            const originalPadding = docEl.style.padding;
+            
+            docEl.style.boxShadow = 'none';
+            docEl.style.padding = '0';
+            
+            // Hide form section, wait for DOM reflow
+            const formSection = document.getElementById('form-section');
+            formSection.style.display = 'none';
+            
+            await new Promise(r => setTimeout(r, 100)); // Crucial: wait for DOM to update
 
             try {
                 const canvasImage = await html2canvas(docEl, {
-                    scale: 1.0, // Good balance of quality and size
+                    scale: 1.5,
                     useCORS: true,
                     backgroundColor: '#ffffff'
                 });
                 
-                // Restore UI
-                docEl.className = origClasses;
-                docEl.style.padding = "40px";
-                document.getElementById('form-section').style.display = 'block';
+                // Restore UI immediately
+                docEl.style.boxShadow = originalShadow;
+                docEl.style.padding = originalPadding;
+                formSection.style.display = 'block';
 
-                // Compress image to avoid 413 Payload Too Large
                 const imgData = canvasImage.toDataURL('image/jpeg', 0.65);
                 
                 const { jsPDF } = window.jspdf;
@@ -232,9 +237,9 @@
                 document.getElementById('action-btn-container').style.display = 'block';
                 
                 // Restore UI in case of error
-                docEl.className = origClasses;
-                docEl.style.padding = "40px";
-                document.getElementById('form-section').style.display = 'block';
+                docEl.style.boxShadow = originalShadow;
+                docEl.style.padding = originalPadding;
+                formSection.style.display = 'block';
             }
         }
     </script>
