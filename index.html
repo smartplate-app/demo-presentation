@@ -160,6 +160,27 @@
         </div>
     </div>
 
+    
+    <!-- Slide 8: Ledger Match -->
+    <div class="slide" id="slide-8">
+        <div class="slide-title">8. הצלבת כרטסות ספקים אוטומטית</div>
+        <div class="slide-desc">כלי שובר שוויון! העלאת כרטסת ספק (PDF) והשוואה אוטומטית מול החשבוניות שנקלטו במערכת. איתור מסמכים חסרים, פערי סכומים וזיכויים בלחיצת כפתור.</div>
+        
+        <div class="device-container device-desktop" id="device-8" style="width: 100%; max-width: 1000px; height: 100%; max-height: 550px;">
+            <img src="https://media.base44.com/images/public/69b697029d0cd0fecb49189b/d74ba2c70_ScreenShot2026-07-14at115516.png" class="w-full h-full object-cover bg-white" alt="הצלבת כרטסות ספקים">
+        </div>
+    </div>
+
+    <!-- Slide 9: AI & Automations -->
+    <div class="slide" id="slide-9">
+        <div class="slide-title">9. בינה מלאכותית (AI) ואוטומציות הנהלת חשבונות</div>
+        <div class="slide-desc">חיסכון של עשרות שעות בחודש: סריקת חשבוניות חכמה (AI) המזהה את הספק והסכומים, ייצוא נתונים בקליק לרואה החשבון (Dokka/Sheets), ומערכת התראות מובנית למנהלים.</div>
+        
+        <div class="device-container device-desktop" id="device-9" style="width: 100%; max-width: 900px; height: 100%; max-height: 500px; border: none; background: transparent; box-shadow: none;">
+            <img src="https://media.base44.com/images/public/69b697029d0cd0fecb49189b/50f70e9a8_ScreenShot2026-07-14at114945.png" class="w-full h-full object-contain rounded-2xl shadow-2xl" alt="בינה מלאכותית ואוטומציות">
+        </div>
+    </div>
+
     <!-- Presentation Controls -->
     <div class="controls">
         <button class="btn" onclick="prevSlide()"><i class="fas fa-chevron-right"></i> הקודם</button>
@@ -177,11 +198,13 @@
         <div class="dot" onclick="goToSlide(5)"></div>
         <div class="dot" onclick="goToSlide(6)"></div>
         <div class="dot" onclick="goToSlide(7)"></div>
+        <div class="dot" onclick="goToSlide(8)"></div>
+        <div class="dot" onclick="goToSlide(9)"></div>
     </div>
 
     <script>
         let currentSlide = 0;
-        const totalSlides = 8;
+        const totalSlides = 10;
 
         function updateUI() {
             document.querySelectorAll('.slide').forEach((el, index) => {
