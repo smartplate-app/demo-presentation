@@ -175,7 +175,7 @@
             document.getElementById('loading').classList.remove('hidden');
             document.getElementById('action-btn-container').style.display = 'none';
 
-            // Scroll to top - html2canvas has a known bug with scrolled pages resulting in blank captures on iOS
+            // Scroll to top
             window.scrollTo(0, 0);
 
             const docEl = document.getElementById('full-document');
@@ -187,29 +187,23 @@
             docEl.style.boxShadow = 'none';
             docEl.style.borderRadius = '0';
             
-            // Hide form section, wait for DOM reflow
-            const formSection = document.getElementById('form-section');
-            formSection.style.display = 'none';
-            
-            await new Promise(r => setTimeout(r, 200)); // Wait for DOM and scroll to settle
+            // Wait for scroll to settle
+            await new Promise(r => setTimeout(r, 100)); 
 
             try {
+                // Notice we do NOT hide the form section manually because data-html2canvas-ignore="true" handles it.
+                // Hiding it manually causes layout shifts that break the canvas render.
                 const canvasImage = await html2canvas(docEl, {
                     scale: 1.5,
                     useCORS: true,
-                    backgroundColor: '#ffffff',
-                    scrollX: 0,
-                    scrollY: 0,
-                    windowWidth: document.documentElement.offsetWidth,
-                    windowHeight: document.documentElement.offsetHeight
+                    backgroundColor: '#ffffff'
                 });
                 
                 // Restore UI immediately
                 docEl.style.boxShadow = originalShadow;
                 docEl.style.borderRadius = originalBorderRadius;
-                formSection.style.display = 'block';
 
-                const imgData = canvasImage.toDataURL('image/jpeg', 0.7);
+                const imgData = canvasImage.toDataURL('image/jpeg', 0.65);
                 
                 const { jsPDF } = window.jspdf;
                 const pdfWidth = 210;
@@ -246,7 +240,6 @@
                 // Restore UI in case of error
                 docEl.style.boxShadow = originalShadow;
                 docEl.style.borderRadius = originalBorderRadius;
-                formSection.style.display = 'block';
             }
         }
     </script>
