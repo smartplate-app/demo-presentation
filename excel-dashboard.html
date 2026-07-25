@@ -79,10 +79,11 @@ function render() {
   
   const foodPct = sales ? (food/sales)*100 : 0;
   const laborPct = sales ? (labor/sales)*100 : 0;
-  const prime = foodPct + laborPct;
   const woltPct = sales ? (wolt/sales)*100 : 0;
+  const prime = foodPct + laborPct;
+  const totalPct = prime + woltPct;
   
-  const pClr = prime <= 60 ? 'clr-green' : prime <= 65 ? 'clr-orange' : 'clr-red';
+  const pClr = totalPct <= 63 ? 'clr-green' : totalPct <= 70 ? 'clr-orange' : 'clr-red';
   
   let html = '<div class="kpi-grid">';
   html += '<div class="kpi-card"><div class="kpi-lbl">מכירות נטו</div><div class="kpi-val">'+fmt(sales)+' ₪</div></div>';
@@ -91,7 +92,7 @@ function render() {
   html += '<div class="kpi-card"><div class="kpi-lbl">עלות שכר (ללא טיפ)</div><div class="kpi-val">'+fmt(labor)+' ₪</div><div class="kpi-sub">'+laborPct.toFixed(1)+'% מהמכירות</div></div>';
   html += '</div>';
   
-  html += '<div class="prime-box"><div class="pl">Prime Cost (מזון + עבודה)</div><div class="pv '+pClr+'">'+prime.toFixed(1)+'%</div><div class="ps">יעד חברה: 63%</div></div>';
+  html += '<div class="prime-box"><div class="pl">עלויות תפעול (Prime Cost + עמלות וולט)</div><div class="pv '+pClr+'">'+totalPct.toFixed(1)+'%</div><div class="ps">יעד חברה: 63% &nbsp; | &nbsp; מזון: '+foodPct.toFixed(1)+'% &nbsp; | &nbsp; שכר: '+laborPct.toFixed(1)+'% &nbsp; | &nbsp; וולט: '+woltPct.toFixed(1)+'%</div></div>';
   
   // Breakdown
   let items = d.breakdown.filter(x => Math.abs(x.amount) > 100); // Filter out zero/tiny rows
